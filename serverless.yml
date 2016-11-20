@@ -48,11 +48,18 @@ package:
 
 functions:
   getProducts:
-    handler: com.cci.GetOrders
+    handler: com.cci.OrderResource
     events:
       - http:
           path: accounts/{accountId}/orders
           method: get
+          request:
+            parameters:
+              paths:
+                accountId: true
+      - http:
+          path: accounts/{accountId}/orders
+          method: post
           request:
             parameters:
               paths:

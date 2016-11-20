@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class LambdaFunctionRequest {
 
+    private String httpMethod;
     private Map<String, String> headers;
     private Map<String, String> queryStringParameters;
     private Map<String, String> pathParameters;
@@ -39,5 +40,13 @@ public class LambdaFunctionRequest {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getHttpMethod() {
+        return httpMethod;
+    }
+
+    public void setHttpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
     }
 }

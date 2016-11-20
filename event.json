@@ -1,5 +1,5 @@
 {
-  "key3": "value3",
-  "key2": "value2",
-  "key1": "value1"
+  "headers": {
+    "Authorization" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2VxZS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTgyZDk3ZGY3ODgyYjI5NzAyNTNiY2VlIiwiYXVkIjoiNnF2QUxSTXo1bDhHbVdzeEtmRWZRMWdZM1RGS1kzcHEiLCJleHAiOjE0Nzk3MTIyMzgsImlhdCI6MTQ3OTY3NjIzOH0.iuo0g4Im860B2QQpb4ny8ZkI6sIxDrAhwq-7L5_MjIU"
+  }
 }

@@ -1,4 +1,4 @@
-package com.cci.model.data;
+package com.cci.model;
 
 public class CCI_Order {
 
