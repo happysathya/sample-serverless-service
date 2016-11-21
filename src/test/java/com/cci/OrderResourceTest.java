@@ -48,7 +48,7 @@ public class OrderResourceTest {
 
         LambdaFunctionRequest lambdaFunctionRequest = new LambdaFunctionRequest();
         lambdaFunctionRequest.setHttpMethod("POST");
-        lambdaFunctionRequest.setBody("{\"advertiserOrgId\":\"a101\",\"brandId\":\"b102\"}");
+        lambdaFunctionRequest.setBody("{\"accountId\":\"a101\",\"brand\":\"b102\"}");
         lambdaFunctionRequest.setHeaders(headers);
         lambdaFunctionRequest.setPathParameters(pathParameters);
 

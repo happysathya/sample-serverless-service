@@ -6,6 +6,7 @@ import com.cci.model.CCI_Order;
 import com.cci.model.LambdaFunctionRequest;
 import com.cci.model.LambdaFunctionResponse;
 import com.cci.model.od.Order;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
@@ -23,8 +24,14 @@ public class OrderResource extends CCIRequestHandler<LambdaFunctionRequest, Lamb
     };
     private static TypeReference<CCI_Order> orderReference = new TypeReference<CCI_Order>() {
     };
+    private static TypeReference<Order> odOrderReference = new TypeReference<Order>() {
+    };
     private static ObjectMapper objectMapper = new ObjectMapper();
     private static HttpUrl httpUrl = HttpUrl.parse("http://cci-uat-services.northeurope.cloudapp.azure.com:7004/");
+
+    static {
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     private static Order mapOrder(CCI_Order cci_order) {
         Order od_order = new Order();
@@ -82,7 +89,11 @@ public class OrderResource extends CCIRequestHandler<LambdaFunctionRequest, Lamb
 
     private LambdaFunctionResponse postOrder(LambdaFunctionRequest request) {
         try {
-            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), request.getBody());
+            Order order = objectMapper.readValue(request.getBody(), odOrderReference);
+            CCI_Order cci_order = new CCI_Order();
+            cci_order.setAdvertiserOrgId(order.getAccountId());
+            cci_order.setBrandId(order.getBrand());
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), objectMapper.writeValueAsString(cci_order));
             Request httpRequest = new Request.Builder()
                     .url(httpUrl.newBuilder()
                             .addPathSegment("customers")
