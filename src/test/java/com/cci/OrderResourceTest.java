@@ -2,16 +2,53 @@ package com.cci;
 
 import com.cci.model.LambdaFunctionRequest;
 import com.cci.model.LambdaFunctionResponse;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class OrderResourceTest {
 
+    private static String authorizationToken = null;
     private OrderResource orderResource;
+
+    @BeforeClass
+    public static void authorize() throws IOException {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String url = "https://eqe.eu.auth0.com/oauth/ro";
+        String clientId = "6qvALRMz5l8GmWsxKfEfQ1gY3TFKY3pq";
+        String username = "test_user@clearchannel.com";
+        String password = "P@ssw0rd";
+
+        HashMap<String, String> request = new HashMap<>();
+        request.put("client_id", clientId);
+        request.put("username", username);
+        request.put("password", password);
+        request.put("connection", "Username-Password-Authentication");
+        request.put("grant_type", "password");
+        request.put("scope", "openid");
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), objectMapper.writeValueAsString(request));
+        Request httpRequest = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Response httpResponse = okHttpClient.newCall(httpRequest).execute();
+
+        Map<String, String> responseBody = objectMapper.readValue(httpResponse.body().byteStream(), new TypeReference<Map<String, String>>() {
+        });
+        authorizationToken = responseBody.get("id_token");
+    }
 
     @Before
     public void setup() {
@@ -24,7 +61,7 @@ public class OrderResourceTest {
         pathParameters.put("accountId", "c101");
 
         HashMap<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2VxZS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTgyZDk3ZGY3ODgyYjI5NzAyNTNiY2VlIiwiYXVkIjoiNnF2QUxSTXo1bDhHbVdzeEtmRWZRMWdZM1RGS1kzcHEiLCJleHAiOjE0Nzk3MTIyMzgsImlhdCI6MTQ3OTY3NjIzOH0.iuo0g4Im860B2QQpb4ny8ZkI6sIxDrAhwq-7L5_MjIU");
+        headers.put("Authorization", authorizationToken);
 
         LambdaFunctionRequest lambdaFunctionRequest = new LambdaFunctionRequest();
         lambdaFunctionRequest.setHttpMethod("GET");
@@ -44,7 +81,7 @@ public class OrderResourceTest {
         pathParameters.put("accountId", "c101");
 
         HashMap<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2VxZS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTgyZDk3ZGY3ODgyYjI5NzAyNTNiY2VlIiwiYXVkIjoiNnF2QUxSTXo1bDhHbVdzeEtmRWZRMWdZM1RGS1kzcHEiLCJleHAiOjE0Nzk3MTIyMzgsImlhdCI6MTQ3OTY3NjIzOH0.iuo0g4Im860B2QQpb4ny8ZkI6sIxDrAhwq-7L5_MjIU");
+        headers.put("Authorization", authorizationToken);
 
         LambdaFunctionRequest lambdaFunctionRequest = new LambdaFunctionRequest();
         lambdaFunctionRequest.setHttpMethod("POST");

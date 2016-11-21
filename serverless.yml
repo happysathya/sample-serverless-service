@@ -47,7 +47,7 @@ package:
   artifact: build/distributions/hello.zip
 
 functions:
-  getProducts:
+  orders:
     handler: com.cci.OrderResource
     events:
       - http:
