@@ -53,17 +53,9 @@ functions:
       - http:
           path: accounts/{accountId}/orders
           method: get
-          request:
-            parameters:
-              paths:
-                accountId: true
       - http:
           path: accounts/{accountId}/orders
           method: post
-          request:
-            parameters:
-              paths:
-                accountId: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
