@@ -1,5 +1,12 @@
 language: java
 
+env:
+  global:
+    - AWS_CLOUD_ACCOUNT=CCI
+    - AWS_ACCESS_KEY_ID=AKIAJPLGFW5BCUPYFUUA
+    - AWS_SECRET_ACCESS_KEY=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
+    - AWS_SERVERLESS_STAGE=dev
+
 jdk:
   - oraclejdk8
 
@@ -11,4 +18,8 @@ before_install:
 
 install: true
 
-script: ./gradlew clean build
+script:
+  - ./gradlew clean build
+
+after_success:
+  - serverless deploy --stage $AWS_SERVERLESS_STAGE
