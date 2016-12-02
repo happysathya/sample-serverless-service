@@ -8,6 +8,7 @@ import okhttp3.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 public class OrderResourceTest {
 
     private static String authorizationToken = null;
