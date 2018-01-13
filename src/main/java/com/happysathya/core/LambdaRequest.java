@@ -1,8 +1,8 @@
-package com.cci.model;
+package com.happysathya.core;
 
 import java.util.Map;
 
-public class LambdaFunctionRequest {
+public class LambdaRequest {
 
     private String httpMethod;
     private Map<String, String> headers;

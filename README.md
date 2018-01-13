@@ -1,4 +1,13 @@
-# sample-serverless-service
-An AWS serverless service
+# AWS serverless handler template
 
-[![Build Status](https://travis-ci.org/happysathya/sample-serverless-service.svg?branch=master)](https://travis-ci.org/happysathya/sample-serverless-service)
+##### Build
+```
+./gradlew clean build
+```
+
+##### Deploy
+```
+serverless info --stage dev
+serverless remove --stage dev
+serverless deploy --stage dev
+```

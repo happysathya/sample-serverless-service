@@ -1,4 +1,4 @@
-package com.cci.handler;
+package com.happysathya.core;
 
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import okhttp3.Response;
@@ -7,7 +7,7 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class CCIRequestHandler<I, O> implements RequestHandler<I, O> {
+public abstract class CustomRequestHandler<I, O> implements RequestHandler<I, O> {
 
     protected Map<String, String> getFlatHeaders(Response httpResponse) {
         return httpResponse.headers()

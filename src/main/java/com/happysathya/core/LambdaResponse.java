@@ -1,14 +1,14 @@
-package com.cci.model;
+package com.happysathya.core;
 
 import java.util.Map;
 
-public class LambdaFunctionResponse {
+public class LambdaResponse {
 
     private int statusCode;
     private Map<String, String> headers;
     private String body;
 
-    public LambdaFunctionResponse(int statusCode, Map<String, String> headers, String body) {
+    public LambdaResponse(int statusCode, Map<String, String> headers, String body) {
         this.statusCode = statusCode;
         this.headers = headers;
         this.body = body;
